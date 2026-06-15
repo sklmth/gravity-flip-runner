@@ -44,8 +44,26 @@ let gameState = {
 // Canvas 设置
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 800;
-canvas.height = 400;
+
+// 让画布内部分辨率跟随实际显示尺寸：
+// 桌面端是宽屏(约 800x400)，手机竖屏则变成高瘦的纵向世界(约 400x700)。
+// 游戏逻辑各处都实时读取 canvas.width/height，所以改变分辨率即自动适配。
+function resizeCanvas() {
+    const wrap = canvas.parentElement; // .canvas-wrap
+    const rect = wrap.getBoundingClientRect();
+    const w = Math.max(1, Math.round(rect.width));
+    const h = Math.max(1, Math.round(rect.height));
+    canvas.width = w;
+    canvas.height = h;
+    // 进行中 resize：把玩家夹回世界内，避免越界
+    if (typeof player !== 'undefined') {
+        if (player.y + player.height > canvas.height) player.y = canvas.height - player.height;
+        if (player.y < 0) player.y = 0;
+    }
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 100));
 
 // 玩家对象
 const player = {
@@ -100,7 +118,8 @@ class Particle {
 class Obstacle {
     constructor() {
         this.width = CONFIG.obstacleWidth;
-        this.height = Math.random() * 100 + 80;
+        // 障碍物高度按世界高度比例(18%~40%)，纵向/横向世界都留有可通过的通道
+        this.height = canvas.height * (Math.random() * 0.22 + 0.18);
         this.x = canvas.width;
         this.position = Math.random() > 0.5 ? 'top' : 'bottom';
         this.y = this.position === 'top' ? 0 : canvas.height - this.height;
