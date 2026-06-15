@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>重力反转跑酷 - Gravity Flip Runner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>🌀 重力反转跑酷</h1>
+            <div class="topbar">
+                <div class="player-tag">👤 <span id="playerNameTag">玩家</span></div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="label">分数</span>
+                        <span class="value" id="score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">金币</span>
+                        <span class="value" id="coins">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">最高分</span>
+                        <span class="value" id="highscore">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-wrap">
+            <canvas id="gameCanvas"></canvas>
+            <!-- 手机横冲按钮(仅触屏显示) -->
+            <button id="dashBtn" type="button">⚡<span>横冲</span></button>
+        </div>
+
+        <!-- 游戏结束 -->
+        <div class="game-over" id="gameOver">
+            <div class="game-over-content">
+                <h2>游戏结束！</h2>
+                <p class="final-score">得分: <span id="finalScore">0</span></p>
+                <p class="final-coins">金币: <span id="finalCoins">0</span></p>
+                <p class="final-rank" id="finalRank">正在上传成绩…</p>
+
+                <div class="lb-box">
+                    <h3>🏆 排行榜 TOP 10</h3>
+                    <ol class="lb-list" id="gameOverLbList"></ol>
+                </div>
+
+                <button id="restartBtn" class="btn">重新开始</button>
+            </div>
+        </div>
+
+        <!-- 登录(输入姓名) -->
+        <div class="start-screen active" id="loginScreen">
+            <div class="start-content">
+                <h2>🌀 重力反转跑酷</h2>
+                <p class="login-tip">输入你的名字，登上排行榜！</p>
+                <input type="text" id="nameInput" class="name-input" maxlength="12" placeholder="请输入姓名 (最多12字)" autocomplete="off">
+                <p class="login-error" id="loginError"></p>
+                <button id="loginBtn" class="btn btn-start">进入游戏</button>
+            </div>
+        </div>
+
+        <!-- 开始页 -->
+        <div class="start-screen" id="startScreen">
+            <div class="start-content">
+                <h2>🌀 重力反转跑酷</h2>
+                <p class="greeting">欢迎，<span id="greetName">玩家</span>！</p>
+                <div class="instructions" id="instructions">
+                    <!-- 说明文案由 JS 按设备注入 -->
+                </div>
+                <button id="startBtn" class="btn btn-start">开始游戏</button>
+                <div class="start-actions">
+                    <button id="showLbBtn" class="btn btn-mini">🏆 排行榜</button>
+                    <button id="changeNameBtn" class="btn btn-mini">✏️ 换名字</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 独立排行榜 -->
+        <div class="start-screen" id="leaderboardScreen">
+            <div class="start-content">
+                <h2>🏆 排行榜</h2>
+                <ol class="lb-list lb-list-full" id="fullLbList"></ol>
+                <p class="lb-empty" id="lbEmpty" style="display:none;">还没有成绩，快来抢第一！</p>
+                <button id="lbBackBtn" class="btn btn-start">返回</button>
+            </div>
+        </div>
+
+        <div class="controls" id="controlsHint">
+            <p>空格/点击 反转重力　·　连按 Shift/右键 横冲直撞　·　M 静音</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

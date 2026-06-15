@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# SQLite database (runtime data)
+leaderboard.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db

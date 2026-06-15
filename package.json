@@ -1,0 +1,12 @@
+{
+  "name": "gravity-flip-runner",
+  "version": "1.0.0",
+  "description": "重力反转跑酷 - 带在线排行榜的休闲游戏 (零依赖, 用 Node 内置 http + node:sqlite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
