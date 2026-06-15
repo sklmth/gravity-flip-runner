@@ -56,9 +56,11 @@ function resizeCanvas() {
     canvas.width = w;
     canvas.height = h;
     // 进行中 resize：把玩家夹回世界内，避免越界
-    if (typeof player !== 'undefined') {
-        if (player.y + player.height > canvas.height) player.y = canvas.height - player.height;
-        if (player.y < 0) player.y = 0;
+    // 注意：player 是下方的 const，存在暂时性死区，用 window 引用避免在初始化前访问报错
+    const p = window.player;
+    if (p) {
+        if (p.y + p.height > canvas.height) p.y = canvas.height - p.height;
+        if (p.y < 0) p.y = 0;
     }
 }
 resizeCanvas();
@@ -76,6 +78,7 @@ const player = {
     color: '#00ff88',
     trail: []
 };
+window.player = player; // 供 resizeCanvas 在游戏中夹紧位置(避免 TDZ)
 
 // 障碍物和金币数组
 let obstacles = [];
